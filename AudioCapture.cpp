@@ -1,6 +1,7 @@
 #include <iostream>
 #include <thread>
 #include "AudioCapture.h"
+#include <chrono>
 
 bool AudioCapture::quit = false;
 
@@ -17,7 +18,7 @@ AudioCapture::AudioCapture(const std::string& device_name, bool sdl_enabled) : a
         }
 
         
-
+        // Setup parameters
         snd_pcm_hw_params_t *params;
         snd_pcm_hw_params_alloca(&params);
         snd_pcm_hw_params_any(handle, params);
@@ -122,6 +123,8 @@ AudioCapture::AudioCapture(const std::string& device_name, bool sdl_enabled) : a
             return;
         }
 
+        std::cout << "Avail = " << avail << std::endl;
+
         static char buffer[4096];
         snd_pcm_sframes_t frames = snd_pcm_readi(handle, buffer, avail);
 
@@ -161,6 +164,7 @@ AudioCapture::AudioCapture(const std::string& device_name, bool sdl_enabled) : a
             // std::cout << "test = " << audioCapture->waveform[i] << std::endl;
         }
         SDL_RenderPresent(audioCapture->renderer);
+        // std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 
 
