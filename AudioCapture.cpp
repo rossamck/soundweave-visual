@@ -74,9 +74,9 @@ AudioCapture::AudioCapture(const std::string& device_name, bool sdl_enabled) : a
         stopCapture();
         audioFile.close();
         snd_pcm_close(handle);
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        SDL_Quit();
+    //    SDL_DestroyRenderer(renderer);
+    //    SDL_DestroyWindow(window);
+    //    SDL_Quit();
     }
 
     // void AudioCapture::capture() {
